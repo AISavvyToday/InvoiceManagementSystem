@@ -89,11 +89,16 @@ WSGI_APPLICATION = 'invoicemanager.wsgi.application'
 
 DATABASES = {
      'default': {
-         'ENGINE': 'django.db.backends.sqlite3',
-         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+         'ENGINE': 'django.db.backends.postgresql',
+         'NAME': 'd104useo1ehqr7',
+         'HOST': 'ec2-52-3-4-232.compute-1.amazonaws.com',
+         'PORT': 5432,
+         'USER': 'teprjsxaekqoco',
+         'PASSWORD': '4e360b509e7ac19b2b6f2ec18de27f731903870949cc1b4e47587a4554f1287c',
      }
 
 }
+
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
