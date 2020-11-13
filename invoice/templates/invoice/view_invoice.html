@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if error_message %}
+
+<div class="alert alert-danger">{{ error_message }}</div>
+
+{% endif %}
+
+        &nbsp;<br>
+    <div class="container">
+
+    {% if error_message %}
+    <div class="alert alert-danger">{{ error_message }}</div>
+    {% endif %}
+
+    {% if invoice %}
+
+    <div class="row">
+        <div class="col-sm-4 text-left">
+            Payment to:<br>
+            <address>
+            <strong>Swifthub Limited</strong><br>
+            Nyaku Hse,<br>
+            Hurlingham, Argwings Kodhek Rd,<br>
+            Nairobi – Kenya.
+            </address>
+        </div>
+        <div class="col-sm-4 text-center">
+            <h2>Invoice #{{ invoice.invoice_number }}</h2>
+            {{ invoice.date }}
+        </div>
+        <div class="col-sm-4 text-right">
+            <div class="panel panel-default">
+                <div class="panel-heading">Customer</div>
+                <div class="panel-body">
+                    {% if invoice.customer %}
+                    {{ invoice.customer.name }}<br>
+                    {{ invoice.customer.address }}<br>
+                    {{ invoice.customer.city }}-
+                    {{ invoice.customer.region }}
+                    {{ invoice.customer.country }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <tr>
+            <th>#</th>
+            <th>ITEM</th>
+            <th>DESCRIPTION</th>
+            <th>COST (KES)</th>
+            <th>QUANTITY</th>
+            <th>TOTAL (KES)</th>
+        </tr>
+        {% for item in invoice.invoiceitem_set.all %}
+        <tr>
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+			<td>{{ item.description }}</td>
+			<td>{{ item.cost }}</td>
+			<td>{{ item.qty }}</td>
+			<td>{{ item.total }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2 class="text-right">Invoice total (KES): {{ invoice.total_items }}</h2>
+
+    <div class="panel-footer">
+        {% if invoice.status == 'Unpaid' %}
+            <button type="button" data-toggle="modal" data-target="#confirmClearInvoice" data-object-name="{{ invoice.invoice_number }}" data-clear_invoice-url="{% url 'invoice:clear_invoice' invoice.invoice_number %}" class="btn btn-primary">Clear Invoice</button>
+
+            <a href="{% url 'invoice:print_invoice' invoice.invoice_number %}" target="_new" class="btn btn-primary">Print Invoice</a>
+        {% else %}
+            <a href="{% url 'invoice:print_invoice' invoice.invoice_number %}" target="_new" class="btn btn-primary">Print Invoice</a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+<!-- invoice clearance confirmation modal -->
+<div class="modal fade" id="confirmClearInvoice" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirm</h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                <a href="#" class="btn btn-danger">Yes</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // js for modal for clearing an invoice
+
+    $(document).ready(function() {
+        $('#confirmClearInvoice').on('show.bs.modal', function(e) {
+            var name = $(e.relatedTarget).data('object-name');
+            var url = $(e.relatedTarget).data('clear_invoice-url');
+            $('#confirmClearInvoice .modal-body').html("Are you sure you want to clear invoice " + name + "?<br><i>This will mark it as a paid invoice!</i>");
+            $('#confirmClearInvoice .modal-footer a').attr('href', url);
+        });
+    });
+
+</script>
+{% endblock content %}

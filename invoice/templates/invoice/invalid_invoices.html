@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% if invoice_list %}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">{% if title %}{{ title }}{% else %}Invalid Invoices{% endif %}</div>
+    <table class="table table-hover">
+        <tr>
+            <th>Invoice</th>
+            <th>Customer</th>
+            <th>Date Created</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Valid</th>
+            <th>Total (KES)</th>
+            <th class="text-right">Actions</th>
+        </tr>
+
+        {% for invoice in invoice_list %}
+        <tr>
+            <td class="bg-danger">{{ invoice.invoice_number }}</td>
+            <td class="bg-danger">{{ invoice.customer }}</td>
+            <td class="bg-danger">{{ invoice.date_created|date:"SHORT_DATE_FORMAT" }}</td>
+            <td class="bg-danger">{{ invoice.due_date|date:"SHORT_DATE_FORMAT" }}</td>
+            <td class="bg-danger">{{ invoice.status }}</td>
+            <td class="bg-danger">{{ invoice.valid }}</td>
+            <td class="bg-danger">{{ invoice.total_items }}</td>
+            <td class="text-right bg-danger">
+            <button id="myBtn" class="btn btn-xs btn-primary">View</button>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+{% if invoice_list.has_other_pages %}
+  <ul class="pagination">
+    {% if invoice_list.has_previous %}
+      <li><a href="?page={{ invoice_list.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in invoice_list.paginator.page_range %}
+      {% if invoice_list.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if invoice_list.has_next %}
+      <li><a href="?page={{ invoice_list.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+
+{% else %}
+<div class="alert alert-warning">No invoices!</div>
+{% endif %}
+
+{% endblock %}
