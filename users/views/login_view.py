@@ -35,7 +35,7 @@ def sign_in(request):
             # check to ensure that the username is not None.
             # If it is, inform the user accordingly and presented
             # with the form to try again
-            if username is not None and len(username) >= 6:
+            if username is not None:
 
                 # authenticate the user. If the user object is not None,
                 # it means the user exists in the system. Then if the password
