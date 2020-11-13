@@ -1,1 +1,1 @@
-web: gunicorn swift_invoice.wsgi --log-file -
+web: gunicorn invoicemanager.wsgi
