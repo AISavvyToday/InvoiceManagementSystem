@@ -69,13 +69,18 @@
 							</ul>
 					</li>
 				</ul>
+
+			</div>
+
+			<!-- Search form -->
+			<div>
 				<form class="navbar-form navbar-right" action="{% url 'invoice:search_invoice' %}" method="POST">
 					{% csrf_token %}
 					<div class="form-group">
 						<input type="text" class="form-control" placeholder="Invoice Number" name="invoice_number">
 					</div>
 					<button type="submit" class="btn btn-default">Go</button>
-				</form>				
+				</form>	
 			</div>
 
 			{% endif %}
