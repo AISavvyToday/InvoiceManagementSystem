@@ -59,13 +59,7 @@
 					</li>
 				</ul>
 
-				<form class="navbar-form navbar-right" action="{% url 'invoice:search_invoice' %}" method="POST">
-					{% csrf_token %}
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Invoice Number" name="invoice_number">
-					</div>
-					<button type="submit" class="btn btn-default">Go</button>
-				</form>
+
 
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown">
@@ -75,6 +69,13 @@
 							</ul>
 					</li>
 				</ul>
+				<form class="navbar-form navbar-right" action="{% url 'invoice:search_invoice' %}" method="POST">
+					{% csrf_token %}
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Invoice Number" name="invoice_number">
+					</div>
+					<button type="submit" class="btn btn-default">Go</button>
+				</form>				
 			</div>
 
 			{% endif %}
