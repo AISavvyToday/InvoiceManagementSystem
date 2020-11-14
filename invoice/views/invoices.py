@@ -150,7 +150,11 @@ def invoice(request, invoice_id):
 @login_required(login_url='users:login')
 def search_invoice(request):
     invoice_number = request.POST['invoice_number']
-    return HttpResponseRedirect(reverse('invoice:view_invoice', args=(invoice_number,)))
+    inv = get_object_or_404(Invoice, invoice_number=invoice_number)
+    if not inv:
+        return HttpResponse(request, '<p>Sorry invoice not found, please ensure you have the correct invoice number </p>')
+    else:    
+        return HttpResponseRedirect(reverse('invoice:view_invoice', args=(invoice_number,)))
 
 
 # Create new invoice
