@@ -4,6 +4,8 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import datetime
+from reportlab.pdfgen import canvas
+from django.http import HttpResponse
 
 from ..forms import ItemFormset
 
@@ -226,3 +228,13 @@ def invalidate_invoice(request, invoice_id):
     invoice.valid = False
     invoice.save()
     return HttpResponseRedirect(reverse('invoice:index'))
+
+@login_required(login_url='users:login')
+def download_invoice(request):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
+    pdf = canvas.Canvas(response)
+    pdf.drawString(100, 100, "Invoice is here")
+    pdf.showPage()
+    pdf.save()
+    return response
