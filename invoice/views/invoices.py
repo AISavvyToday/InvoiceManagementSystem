@@ -16,6 +16,7 @@ from invoice.models.inv import Invoice
 
 
 #import function for creating pdf from html
+import pdfkit
 from users.utils import render_to_pdf
 
 
@@ -238,7 +239,7 @@ def invalidate_invoice(request, invoice_id):
 
 @login_required(login_url='users:login')
 def download_invoice(request, invoice_id, **kwargs):
-    pdf = render_to_pdf('invoice/templates/invoice/invoice.html')
+    pdf = pdfkit.from_file('invoice/templates/invoice/invoice.html')
     if pdf:
         response = HttpResponse(pdf, content_type='application/pdf')
         filename = "Invoice_%s.pdf" %(invoice_id)
