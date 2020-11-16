@@ -229,12 +229,12 @@ def invalidate_invoice(request, invoice_id):
     invoice.save()
     return HttpResponseRedirect(reverse('invoice:index'))
 
-# @login_required(login_url='users:login')
-# def download_invoice(request):
-#     response = HttpResponse(content_type='application/pdf')
-#     response['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
-#     pdf = canvas.Canvas(response)
-#     pdf.drawString(100, 100, "Invoice is here")
-#     pdf.showPage()
-#     pdf.save()
-#     return response
+@login_required(login_url='users:login')
+def download_invoice(request):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
+    pdf = canvas.Canvas(response)
+    pdf.drawString(100, 100, "Invoice is here")
+    pdf.showPage()
+    pdf.save()
+    return response
