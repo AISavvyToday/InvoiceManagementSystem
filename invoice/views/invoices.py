@@ -237,7 +237,7 @@ def invalidate_invoice(request, invoice_id):
 
 @login_required(login_url='users:login')
 def download_invoice(request, invoice_id):
-    file = create_pdf(open('print_invoice.html'))
+    file = create_pdf(open('invoice/templates/invoice/print_invoice.html'))
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
     pdf = canvas.Canvas(response)
