@@ -255,7 +255,7 @@ def download_invoice(request, invoice_id):
         response['Content-Disposition'] = 'attachment; filename="{}.pdf"'.format(invoice_id)
 
         # run the conversion and write the result into the output stream
-        client.convertUrlToStream('http://en.wikipedia.org', response)
+        client.convertUrlToStream('invoice/templates/invoice/invoice.html', response)
         return response
     except pdfcrowd.Error as why:
         # send the error in the HTTP response
