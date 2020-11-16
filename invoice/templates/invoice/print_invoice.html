@@ -17,6 +17,7 @@
   </head>
   <body>
   	&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>
+    <a href="{% url 'invoice:download_invoice' invoice.invoice_number %}"><button type="button" data-toggle="modal" class="btn btn-primary">Download Invoice</button></a> 
     <header class="clearfix">
       <div id="logo">
         <img src="{% static 'invoice/img/logo.png' %}">
@@ -85,7 +86,6 @@
       <p>Incase of Mpesa payment kindly forward the confirmation message to <strong>0712472060</strong> <br> Thank you for allowing us to serve you!</p>
         </div>
       </div>
-      <a href="{% url 'invoice:download_invoice' invoice.invoice_number %}"><button type="button"class="btn btn-primary">Download Invoice</button></a> 
     </main>
 <!--     <footer>
       This invoice is considered official only if duly signed & stamped.
