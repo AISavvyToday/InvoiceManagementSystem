@@ -238,7 +238,7 @@ def invalidate_invoice(request, invoice_id):
 
 @login_required(login_url='users:login')
 def download_invoice(request, invoice_id):
-    file = pdfkit.from_file(open('invoice/templates/invoice/print_invoice.html'), 'invoice.pdf')
+    file = pdfkit.from_url('https://swift-json-invoice-sys.herokuapp.com/invoice/invoice/01112020/print/', 'invoice.pdf')
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
     pdf = canvas.Canvas(response)
