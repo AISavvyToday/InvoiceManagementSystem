@@ -1,4 +1,9 @@
 import re
+from io import BytesIO
+from django.http import HttpResponse
+from django.template.loader import get_template
+
+import pdfkit 
 
 
 def validate_data(username, password, email, first_name, last_name):
@@ -41,3 +46,8 @@ def validate_data(username, password, email, first_name, last_name):
 
     return ok, messages
 
+
+    
+
+def create_pdf(html_file):
+    return pdfkit.from_file(html_file, 'invoice.pdf')

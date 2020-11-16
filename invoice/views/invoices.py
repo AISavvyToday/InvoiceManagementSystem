@@ -15,6 +15,10 @@ from invoice.models.customer import Customer
 from invoice.models.inv import Invoice
 
 
+#import function for creating pdf from html
+from users.utils import create_pdf
+
+
 @login_required(login_url='users:login')
 def index(request):
     invoice = Invoice.objects.all().order_by('-date_created')
@@ -229,12 +233,15 @@ def invalidate_invoice(request, invoice_id):
     invoice.save()
     return HttpResponseRedirect(reverse('invoice:index'))
 
+
+
 @login_required(login_url='users:login')
 def download_invoice(request, invoice_id):
+    file = create_pdf(open('print_invoice.html'))
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
     pdf = canvas.Canvas(response)
-    pdf.drawString(100, 100, 'print_invoice.html')
+    pdf.drawString(100, 100, file)
     pdf.showPage()
     pdf.save()
     return response

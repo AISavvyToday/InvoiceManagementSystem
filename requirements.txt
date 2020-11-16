@@ -12,3 +12,4 @@ gunicorn
 django-heroku
 psycopg2
 reportlab
+pdfkit
