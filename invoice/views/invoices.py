@@ -243,12 +243,13 @@ def invalidate_invoice(request, invoice_id):
 # function for converting html to pdf
 @login_required(login_url='users:login')
 def download_invoice(request, invoice_id):
-    # set HTTP response headers
-    response = HttpResponse(content_type='application/pdf')
-    response['Cache-Control'] = 'max-age=0'
-    response['Accept-Ranges'] = 'none'
-    response['Content-Disposition'] = 'attachment; filename="{}.pdf"'.format(invoice_id)
+    pass
+    # # set HTTP response headers
+    # response = HttpResponse(content_type='application/pdf')
+    # response['Cache-Control'] = 'max-age=0'
+    # response['Accept-Ranges'] = 'none'
+    # response['Content-Disposition'] = 'attachment; filename="{}.pdf"'.format(invoice_id)
 
-    # run the conversion and write the result into the output stream
-    pdfkit.from_file('invoice/templates/invoice/invoice.html', response)
-    return response
+    # # run the conversion and write the result into the output stream
+    # pdfkit.from_file('invoice/templates/invoice/invoice.html', response)
+    # return response
