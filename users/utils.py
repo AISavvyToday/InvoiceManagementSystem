@@ -46,12 +46,3 @@ def validate_data(username, password, email, first_name, last_name):
 
     return ok, messages
 
-
-
-def render_to_pdf(template_src):
-    html  = open(template_src)
-    result = BytesIO()
-    pdf = pisa.pisaDocument(BytesIO(html).encode("ISO-8859-1"), result)
-    if not pdf.err:
-        return HttpResponse(result.getvalue(), content_type='application/pdf')
-    return None

@@ -17,7 +17,7 @@ from invoice.models.inv import Invoice
 
 #import function for creating pdf from html
 import pdfkit
-from users.utils import render_to_pdf
+# from users.utils import render_to_pdf
 import pdfcrowd
 from django.views.decorators.http import require_POST
 
@@ -242,40 +242,13 @@ def invalidate_invoice(request, invoice_id):
 
 # function for converting html to pdf
 @login_required(login_url='users:login')
-@require_POST
 def download_invoice(request, invoice_id):
-    try:
-        # create the API client instance
-        client = pdfcrowd.HtmlToPdfClient('demo', 'ce544b6ea52a5621fb9d55f8b542d14d')
+    # set HTTP response headers
+    response = HttpResponse(content_type='application/pdf')
+    response['Cache-Control'] = 'max-age=0'
+    response['Accept-Ranges'] = 'none'
+    response['Content-Disposition'] = 'attachment; filename="{}.pdf"'.format(invoice_id)
 
-        # set HTTP response headers
-        response = HttpResponse(content_type='application/pdf')
-        response['Cache-Control'] = 'max-age=0'
-        response['Accept-Ranges'] = 'none'
-        response['Content-Disposition'] = 'attachment; filename="{}.pdf"'.format(invoice_id)
-
-        # run the conversion and write the result into the output stream
-        client.convertUrlToStream('invoice/templates/invoice/invoice.html', response)
-        return response
-    except pdfcrowd.Error as why:
-        # send the error in the HTTP response
-        return HttpResponse(why.getMessage(),
-                            status=why.getCode(),
-                            content_type='text/plain')
-
-
-
-
-# @login_required(login_url='users:login')
-# def download_invoice(request, invoice_id, **kwargs):
-#     pdf = pdfkit.from_file('invoice/templates/invoice/invoice.html', str(invoice_id+'.pdf'))
-#     if pdf:
-#         response = HttpResponse(pdf, content_type='application/pdf')
-#         filename = "Invoice_%s.pdf" %(invoice_id)
-#         content = "inline; filename='%s'" %(filename)
-#         download = request.GET.get("download")
-#         if download:
-#             content = "attachment; filename='%s'" %(filename)
-#         response['Content-Disposition'] = content
-#         return response
-#     return HttpResponse("Not found")   
+    # run the conversion and write the result into the output stream
+    pdfkit.from_file('invoice/templates/invoice/invoice.html', response)
+    return response
