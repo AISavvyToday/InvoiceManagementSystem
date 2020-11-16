@@ -230,7 +230,7 @@ def invalidate_invoice(request, invoice_id):
     return HttpResponseRedirect(reverse('invoice:index'))
 
 @login_required(login_url='users:login')
-def download_invoice(request):
+def download_invoice(request, invoice_id):
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
     pdf = canvas.Canvas(response)
