@@ -3,7 +3,7 @@ from io import BytesIO
 from django.http import HttpResponse
 from django.template.loader import get_template
 
-import pdfkit 
+from xhtml2pdf import pisa
 
 
 def validate_data(username, password, email, first_name, last_name):
@@ -47,7 +47,11 @@ def validate_data(username, password, email, first_name, last_name):
     return ok, messages
 
 
-    
 
-# def create_pdf(html_file, pdf_name):
-#     return pdfkit.from_file(html_file, 'invoice.pdf')
+def render_to_pdf(template_src):
+    html  = open(template_src)
+    result = BytesIO()
+    pdf = pisa.pisaDocument(BytesIO(html.encode("ISO-8859-1")), result)
+    if not pdf.err:
+        return HttpResponse(result.getvalue(), content_type='application/pdf')
+    return None
