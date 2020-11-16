@@ -234,7 +234,7 @@ def download_invoice(request, invoice_id):
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
     pdf = canvas.Canvas(response)
-    pdf.drawString(100, 100, "Invoice is here")
+    pdf.drawString(100, 100, 'print_invoice.html')
     pdf.showPage()
     pdf.save()
     return response
