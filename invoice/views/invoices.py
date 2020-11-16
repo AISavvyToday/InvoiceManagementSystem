@@ -16,7 +16,7 @@ from invoice.models.inv import Invoice
 
 
 #import function for creating pdf from html
-from users.utils import create_pdf
+# from users.utils import create_pdf
 import pdfkit 
 
 
@@ -236,13 +236,13 @@ def invalidate_invoice(request, invoice_id):
 
 
 
-@login_required(login_url='users:login')
-def download_invoice(request, invoice_id):
-    file = pdfkit.from_url('http://google.com', 'invoice.pdf')
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
-    pdf = canvas.Canvas(response)
-    pdf.drawString(100, 100, file)
-    pdf.showPage()
-    pdf.save()
-    return response
+# @login_required(login_url='users:login')
+# def download_invoice(request, invoice_id):
+#     file = pdfkit.from_url('http://google.com', 'invoice.pdf')
+#     response = HttpResponse(content_type='application/pdf')
+#     response['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
+#     pdf = canvas.Canvas(response)
+#     pdf.drawString(100, 100, file)
+#     pdf.showPage()
+#     pdf.save()
+#     return response
