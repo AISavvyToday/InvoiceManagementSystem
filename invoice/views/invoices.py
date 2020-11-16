@@ -236,13 +236,12 @@ def invalidate_invoice(request, invoice_id):
 
 
 
-# @login_required(login_url='users:login')
-# def download_invoice(request, invoice_id):
-#     file = pdfkit.from_url('http://google.com', 'invoice.pdf')
-#     response = HttpResponse(content_type='application/pdf')
-#     response['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
-#     pdf = canvas.Canvas(response)
-#     pdf.drawString(100, 100, file)
-#     pdf.showPage()
-#     pdf.save()
-#     return response
+@login_required(login_url='users:login')
+def download_invoice(request, invoice_id):
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="invoice.pdf"'
+    pdf = canvas.Canvas(response)
+    pdf.drawString(100, 100, 'Sorry, this is being worked on')
+    pdf.showPage()
+    pdf.save()
+    return response
