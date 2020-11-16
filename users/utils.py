@@ -49,5 +49,5 @@ def validate_data(username, password, email, first_name, last_name):
 
     
 
-def create_pdf(html_file, pdf_name):
-    return pdfkit.from_file(html_file, 'invoice.pdf')
+# def create_pdf(html_file, pdf_name):
+#     return pdfkit.from_file(html_file, 'invoice.pdf')
