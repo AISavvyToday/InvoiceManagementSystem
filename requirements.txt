@@ -13,3 +13,4 @@ django-heroku
 psycopg2
 reportlab
 xhtml2pdf
+pdfkit
