@@ -43,7 +43,7 @@
         </div>
         <div id="invoice">
           <h2>INVOICE  #{{ invoice.invoice_number }}</h2>
-          <p>P051639310D</p>
+          <!-- <p>P051639310D</p> -->
           <div class="date">Date of Invoice: {{ invoice.date_created }}</div>
           <div class="date">Date due: {{ invoice.due_date }}</div>
         </div>
@@ -80,9 +80,11 @@
  	 <div id="thanks"></div>
       <div id="notices">
         <div>NOTE:</div>
-        <div class="notice">Cheques to be drawn in favor of <strong>SWIFTHUB LIMITED</strong>
+        <div class="notice">Cheques to be drawn in favor of <strong>SWIFTHUB LIMITED</strong> or
+          <p>Lipa na Mpesa Paybill Number:<strong>824768</strong></p>
           <p>Thank you for allowing us to serve you!</p>
-      </div></div>
+        </div>
+      </div>
     </main>
 <!--     <footer>
       This invoice is considered official only if duly signed & stamped.
