@@ -75,8 +75,10 @@
             <button type="button" data-toggle="modal" data-target="#confirmClearInvoice" data-object-name="{{ invoice.invoice_number }}" data-clear_invoice-url="{% url 'invoice:clear_invoice' invoice.invoice_number %}" class="btn btn-primary">Clear Invoice</button>
 
             <a href="{% url 'invoice:print_invoice' invoice.invoice_number %}" target="_new" class="btn btn-primary">Print Invoice</a>
+            <a href="{% url 'invoice:download_invoice' invoice.invoice_number %}" target="_new" class="btn btn-primary">Download Invoice</a>
         {% else %}
             <a href="{% url 'invoice:print_invoice' invoice.invoice_number %}" target="_new" class="btn btn-primary">Print Invoice</a>
+            <a href="{% url 'invoice:download_invoice' invoice.invoice_number %}" target="_new" class="btn btn-primary">Download Invoice</a>
         {% endif %}
     </div>
     {% endif %}
