@@ -9,7 +9,7 @@ def render_to_pdf(template_src, context_dict={}):
 	template = get_template(template_src)
 	html  = template.render(context_dict)
 	result = BytesIO()
-	links    = list(lambda uri, rel: os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, '')))
+	links    = lambda uri, rel: os.path.join(settings.MEDIA_ROOT, uri.replace(settings.MEDIA_URL, ''))
 	print(links)
 	# pdf = pisa.pisaDocument(BytesIO(html.encode("utf8")), result, link_callback=links)
 	pdf = pisa.pisaDocument(BytesIO(html.encode("utf8")),result, link_callback=links)
