@@ -246,4 +246,22 @@ def download_invoice(request, invoice_id):
 
     }
     pdf = render_to_pdf('invoice/pdf_template.html', data)
-    return HttpResponse(pdf, content_type='application/pdf')    
+    return HttpResponse(pdf, content_type='application/pdf')
+
+
+# for automatically downloading invoice
+# def auto_download(request,invoice_id):
+#         invoice = get_object_or_404(Invoice, invoice_number=invoice_id)
+#     data = {
+#             'invoice': invoice,
+
+#             }
+#     pdf = render_to_pdf('invoice/pdf_template.html', data)
+
+#     response = HttpResponse(pdf, content_type='application/pdf')
+#     filename = 'invoice_{}'.format(invoice_id)
+#     content = "attachment; filename='%s'" %(filename)
+#     response['Content-Disposition'] = content
+#     return response
+
+

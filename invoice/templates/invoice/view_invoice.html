@@ -7,6 +7,13 @@
 <div class="alert alert-danger">{{ error_message }}</div>
 
 {% endif %}
+    {% block custom_styles %}
+        <link rel="icon" href="{% static 'invoice/img/favicon.png' %}" type="image/gif" >
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'invoice/css/style.css' %}" media="all"/>
+    {% endblock %}
 
         &nbsp;<br>
     <div class="container">
