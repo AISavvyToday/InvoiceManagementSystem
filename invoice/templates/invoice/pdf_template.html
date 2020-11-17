@@ -77,7 +77,7 @@
                 }
 
                 h2.name {
-                font-size: 1.4em;
+                font-size: 2.0em;
                 font-weight: normal;
                 margin: 0;
                 }
@@ -165,7 +165,7 @@
                 table tbody tr:last-child td {
                 border: none;
                 text-align: center;
-                /*margin-left: 180px;*/
+                margin-left: 0px;
                 }
 
                 table tfoot td {
@@ -271,7 +271,7 @@
       <table border="0" cellspacing="1000" cellpadding="10">
         <thead>
           <tr>
-            <th width="50%" class="desc">DESCRIPTION</th>
+            <th width="40%" class="desc">DESCRIPTION</th>
             <th class="unit">COST (KES)</th>
             <th class="qty">QUANTITY/UNITS</th>
             <th class="total">TOTAL (KES)</th>
@@ -280,7 +280,7 @@
         <tbody>
            {% for item in invoice.invoiceitem_set.all %}
           <tr>
-            <td width="50%" class="desc"><h3>{{ item.name }}<br></h3>{{item.description }}</td>
+            <td width="40%" class="desc"><h3>{{ item.name }}<br></h3>{{item.description }}</td>
             <td class="unit">{{ item.cost }}</td>
             <td class="qty">{{ item.qty }}</td>
             <td class="total">{{ item.total }}</td>
