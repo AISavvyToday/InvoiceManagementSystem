@@ -1,5 +1,6 @@
 from django.conf.urls import url
 from .views import invoices, items, customers
+from django.conf.urls.static import static
 
 app_name = 'invoicemanager'
 
@@ -33,3 +34,4 @@ urlpatterns = [
     url(r'^customer/(?P<customer_id>[0-9]+)/delete/$', customers.delete_customer, name='delete_customer'),
     url(r'^customer/new/$', customers.new_customer, name='new_customer'),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
