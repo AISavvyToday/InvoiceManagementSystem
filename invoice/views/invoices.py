@@ -245,5 +245,5 @@ def download_invoice(request, invoice_id):
             'invoice': invoice,
 
     }
-    pdf = render_to_pdf('invoice/templates/invoice/pdf_template.html', data)
+    pdf = render_to_pdf('invoice/pdf_template.html', data)
     return HttpResponse(pdf, content_type='application/pdf')    
