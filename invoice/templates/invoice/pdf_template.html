@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <link rel="icon" href="{% static 'invoice/img/favicon.png' %}" type="image/gif" >
+  <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'invoice/css/style.css' %}" media="all" />
+<style>
+    @page {
+        size: a4 portrait;
+        @frame header_frame {           /* Static Frame */
+            -pdf-frame-content: header_content;
+            left: 50pt; width: 512pt; top: 50pt; height: 40pt;
+        }
+        @frame content_frame {          /* Content Frame */
+            left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+        }
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+        }
+    }
+</style>
+</head>
+
+<body>
+    <!-- Content for Static Frame 'header_frame' -->
+    <div id="header_content">
+    	<h3>{{ invoice.customer.name }}</h3>
+    </div>
+
+    <!-- Content for Static Frame 'footer_frame' -->
+    <div id="footer_content">(c) - page <pdf:pagenumber>
+        of <pdf:pagecount>
+    </div>
+
+    <!-- HTML Content -->
+&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br>&nbsp;<br> 
+    <header class="clearfix">
+      <div id="logo">
+        <img src="{% static 'invoice/img/logo.png' %}">
+      </div>
+      <div id="company">
+        <h2 class="name">Swifthub Limited</h2>
+        <div>Nyaku Hse <br>Argwings Kodhek Rd Hurlingham,</div>
+        <div>Nairobi – Kenya.</div>
+        <div>(254) 712-472060</div>
+        <div><a href="mailto:info@swifthub.co.ke">info@swifthub.co.ke</a></div>
+      </div>
+      </div>
+    </header>
+    <main>
+      <div id="details" class="clearfix">
+        {% if invoice.customer %}
+        <div id="client">
+          <div class="to">INVOICE TO:</div>
+          <h2 class="name">{{ invoice.customer.name }}</h2>
+          <div class="address">
+              {{ invoice.customer.city }}-{{ invoice.customer.region }}</div>
+          <div class="email"><a href="mailto:{{ invoice.customer.email }}">{{ invoice.customer.email }}</a></div>
+          {% endif %}
+        </div>
+        <div id="invoice">
+          <h2>INVOICE  #{{ invoice.invoice_number }}</h2>
+          <!-- <p>P051639310D</p> -->
+          <div class="date">Date of Invoice: {{ invoice.date_created }}</div>
+          <div class="date">Date due: {{ invoice.due_date }}</div>
+        </div>
+      </div>
+      <table border="0" cellspacing="0" cellpadding="0">
+        <thead>
+          <tr>
+            <th class="no">#</th>
+            <th class="desc">DESCRIPTION</th>
+            <th class="unit">COST (KES)</th>
+            <th class="qty">QUANTITY/UNITS</th>
+            <th class="total">TOTAL (KES)</th>
+          </tr>
+        </thead>
+        <tbody>
+           {% for item in invoice.invoiceitem_set.all %}
+          <tr>
+            <td class="no"><!-- {{ item.id }} --></td>
+            <td class="desc"><h3>{{ item.name }}</h3>{{item.description }}</td>
+            <td class="unit">{{ item.cost }}</td>
+            <td class="qty">{{ item.qty }}</td>
+            <td class="total">{{ item.total }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2"></td>
+            <td colspan="2">GRAND TOTAL (KES)</td>
+            <td>{{ invoice.total }}</td>
+          </tr>
+        </tfoot>
+      </table>
+     <div id="thanks"></div>
+      <div id="notices">
+        <div>NOTE:</div>
+        <div class="notice">Cheques to be drawn in favor of <strong>SWIFTHUB LIMITED</strong>
+          <p>Lipa na Mpesa Paybill:<strong> 824768</strong> Account: <strong>{{ invoice.customer.name }}</strong></p>
+      <p>Incase of Mpesa payment kindly forward the confirmation message to <strong>0712472060</strong> <br> Thank you for allowing us to serve you!</p>
+        </div>
+      </div>
+    </main>
+<!--     <footer>
+      This invoice is considered official only if duly signed & stamped.
+    </footer> -->
+
+
+</body>
+</html>

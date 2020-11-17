@@ -16,10 +16,7 @@ from invoice.models.inv import Invoice
 
 
 #import function for creating pdf from html
-import pdfkit
-# from users.utils import render_to_pdf
-import pdfcrowd
-from django.views.decorators.http import require_POST
+from invoice.utils import render_to_pdf
 
 
 
@@ -240,16 +237,13 @@ def invalidate_invoice(request, invoice_id):
 
 
 
-# function for converting html to pdf
+# view for invoice as pdf
 @login_required(login_url='users:login')
 def download_invoice(request, invoice_id):
-    pass
-    # # set HTTP response headers
-    # response = HttpResponse(content_type='application/pdf')
-    # response['Cache-Control'] = 'max-age=0'
-    # response['Accept-Ranges'] = 'none'
-    # response['Content-Disposition'] = 'attachment; filename="{}.pdf"'.format(invoice_id)
+    invoice = get_object_or_404(Invoice, invoice_number=invoice_id)
+    data = {
+            'invoice': invoice,
 
-    # # run the conversion and write the result into the output stream
-    # pdfkit.from_file('invoice/templates/invoice/invoice.html', response)
-    # return response
+    }
+    pdf = render_to_pdf('invoice/templates/invoice/pdf_template.html', data)
+    return HttpResponse(pdf, content_type='application/pdf')    

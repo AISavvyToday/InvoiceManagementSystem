@@ -76,11 +76,11 @@
 
             <a href="{% url 'invoice:print_invoice' invoice.invoice_number %}" target="_new" class="btn btn-primary">Print Invoice</a>
             <a href="#" target="_new" class="btn btn-primary">Download Invoice</a>
-            <!-- <a href="{% url 'invoice:download_invoice' invoice.invoice_number %}" target="_new" class="btn btn-primary">Download Invoice</a> -->
+            <a href="{% url 'invoice:download_invoice' invoice.invoice_number %}" target="_new" class="btn btn-primary">Download Invoice</a>
         {% else %}
             <a href="{% url 'invoice:print_invoice' invoice.invoice_number %}" target="_new" class="btn btn-primary">Print Invoice</a>
             <a href="#" target="_new" class="btn btn-primary">Download Invoice</a>
-            <!-- <a href="{% url 'invoice:download_invoice' invoice.invoice_number %}" target="_new" class="btn btn-primary">Download Invoice</a> -->
+            <a href="{% url 'invoice:download_invoice' invoice.invoice_number %}" target="_new" class="btn btn-primary">Download Invoice</a>
         {% endif %}
     </div>
     {% endif %}
