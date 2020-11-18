@@ -1,4 +1,5 @@
 {% load static %}
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -73,7 +74,7 @@
           <tr>
             <td colspan="2"></td>
             <td colspan="2">GRAND TOTAL (KES)</td>
-            <td>{{ invoice.total }}</td>
+            <td>{{ invoice.total| intcomma }}</td>
           </tr>
         </tfoot>
       </table>
@@ -82,7 +83,7 @@
         <div>NOTE:</div>
         <div class="notice">Cheques to be drawn in favor of <strong>SWIFTHUB LIMITED</strong>
           <p>Lipa na Mpesa Paybill:<strong> 824768</strong> Account: <strong>{{ invoice.customer.name }}</strong></p>
-      <p>Incase of Mpesa payment kindly forward the confirmation message to <strong>0712472060</strong> <br> Thank you for allowing us to serve you!</p>
+      <p>Incase of Mpesa payment kindly forward the Mpesa confirmation message to <strong>0712472060</strong> <br> Thank you for allowing us to serve you!</p>
         </div>
       </div>
     </main>
